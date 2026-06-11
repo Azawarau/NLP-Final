@@ -340,7 +340,7 @@ def main():
     parser.add_argument("--layers", nargs="+", type=int, default=[-1])
     parser.add_argument("--datasets", nargs="+", default=["QMSum", "2WikiMultihop", "ArguAna"])
     parser.add_argument("--max-length", type=int, default=4096)
-    parser.add_argument("--batch-size", type=int, default=1)
+    parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--output-dir", default="results/standalone")
     parser.add_argument("--no-4bit", action="store_true")
     args = parser.parse_args()

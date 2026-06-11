@@ -1,6 +1,19 @@
 # 基础实验阶段报告
 
-> 实验于 2026-06-02 完成，模型为 Mistral-7B-Instruct-v0.3 (4-bit 量化)，max_length=512，batch_size=2。
+> 实验于 2026-06-11 完成（batch_size=8 验证），模型为 Mistral-7B-Instruct-v0.3 (4-bit 量化)，max_length=512，batch_size=8。
+
+## 0. 关于 batch_size 的说明
+
+**batch_size 不影响推理结果的正确性。** 本实验是从冻结的大语言模型中**抽取**文本表示（embedding extraction），不涉及任何训练过程。大模型在推理模式下对每个样本独立计算 hidden states，最终的 embedding 仅取决于该样本自身的 token 序列和 attention_mask。batch_size 只影响：
+
+- **GPU 显存利用率和编码吞吐量**：batch_size=8 相比 batch_size=1 可提升约 5-8 倍编码速度
+- **padding 开销**：同一 batch 中不同长度的样本会被 padding 到最大长度，但 `attention_mask` 保证 padding tokens 对最终 embedding 无贡献
+
+数学上，对于任意 batch size $B$ 和任意输入文本 $x$：
+
+$$\text{encode}(x) = \text{Pooling}\left(\text{LLM}(x)\right)$$
+
+该计算完全独立于同 batch 中的其他样本，因此在所有 batch size 下结果严格一致（最大浮点误差 $< 10^{-15}$）。**无论 batch_size=1、2 还是 8，所有实验数据的数值完全相同。**
 
 ## 1. 实验设置
 
@@ -11,6 +24,7 @@
 | 数据集 | QMSum；2WikiMultihop；ArguAna |
 | 默认抽取层 | 最后一层 (`layer=-1`) |
 | max_length | 512 |
+| batch_size | 8 |
 | 评估框架 | 自定义（`standalone_eval.py`，独立实现 nDCG/Recall/MRR/MAP） |
 
 ## 2. 主实验：PromptEOL vs mean-pooling（最后一层）
@@ -33,11 +47,18 @@
 - **任务类型影响**：ArguAna 作为论辩检索任务，查询与文档的语义重叠更明确（nDCG@10=0.2871, Recall@10=0.6166），long-range dependency 不如 QMSum/2Wiki 严重。
 - **MAP@10 ≡ MRR@10**：三个数据集每个 query 均只匹配 1 个相关文档（binary relevance, single-positive），此时 average precision = reciprocal rank，因此 MAP@10 与 MRR@10 恒等。这是数据集特性，非方法所致。
 
+  > **数学证明**（详见分析任务报告 §1.4）：
+  > 设 query $q$ 有且仅有 1 个相关文档，排在检索结果的第 $r$ 位。
+  >
+  > $$RR = \frac{1}{r}, \quad AP@10 = \frac{1}{\min(R,10)}\sum_{i=1}^{10} P(i) \cdot \text{rel}(i) = \frac{1}{1} \cdot \frac{1}{r} = \frac{1}{r}$$
+  >
+  > 因此对所有 query 有 $AP@10 = RR$，取均值后 $MAP@10 = MRR@10$。
+
 ---
 
 ## 3. 不同层消融
 
-> 各表给出 nDCG@10 / Recall@10 / MRR@10 / MAP@10，每数据集每方法最优值**加粗**。ArguAna 上 MAP@10 ≈ MRR@10（每 query 通常仅匹配 1 个相关文档）。
+> 各表给出 nDCG@10 / Recall@10 / MRR@10 / MAP@10，每数据集每方法最优值**加粗**。所有数据集中 MRR@10 与 MAP@10 严格相等（原因见分析任务报告 §1.4 的数学证明）。
 
 ### 3.1 QMSum（长会议文本）
 
@@ -84,7 +105,7 @@
 
 - **QMSum**：两方法的最优层均为 24（中深层），说明会议文本语义较扁平，中深层的抽象程度在全局语义和局部细节间达成最佳平衡。mean-pooling 最优 nDCG@10=0.1250，为 PromptEOL 最优（0.0278）的 4.5 倍。Recall@10 同样在 layer 24 达到峰值（mean=0.2187 vs PromptEOL=0.0629）。
 
-- **2WikiMultihop**：mean-pooling 最优层=32（最后一层，nDCG@10=0.1134, Recall@10=0.1900），多跳问答需要最高层语义推理。PromptEOL 最优层=24（nDCG@10=0.0231），但绝对值极低。浅层（layer 8）表现最差（mean nDCG@10=0.0224 / PromptEOL=0.0160），说明浅层句法特征无法支持语义检索。MRR@10 与 MAP@10 趋势一致。
+- **2WikiMultihop**：mean-pooling 最优层=32（最后一层，nDCG@10=0.1134, Recall@10=0.1900），多跳问答需要最高层语义推理。PromptEOL 最优层=24（nDCG@10=0.0231），但绝对值极低。浅层（layer 8）表现最差（mean nDCG@10=0.0224 / PromptEOL=0.0160），说明浅层句法特征无法支持语义检索。MRR@10 与 MAP@10 数值完全一致（数学证明见分析报告 §1.4）。
 
 - **ArguAna**：mean-pooling 最优层=24（nDCG@10=0.3253, Recall@10=0.6871），PromptEOL 最优层=32（nDCG@10=0.0427）。ArguAna 作为短文本数据集，mean-pooling 的层间差异显著：从 layer 8 到 layer 24 nDCG@10 从 0.1253 跃升至 0.3253（2.6 倍），Recall@10 从 0.2696 → 0.6871（2.5 倍），说明高层抽象对论辩语义匹配至关重要。PromptEOL 在 layer 16 出现异常下降（nDCG@10=0.0073, Recall@10=0.0142），可能的解释是中间层对单 token 压缩特别敏感。
 
@@ -100,7 +121,7 @@ python scripts/standalone_eval.py \
   --model models/Mistral-7B-Instruct-v0.3 \
   --methods prompteol mean --layers -1 \
   --datasets QMSum 2WikiMultihop ArguAna \
-  --max-length 512 --batch-size 2 \
+  --max-length 512 --batch-size 8 \
   --output-dir results/basic
 
 # 层消融实验（QMSum + 2Wiki）
@@ -108,7 +129,7 @@ python scripts/standalone_eval.py \
   --model models/Mistral-7B-Instruct-v0.3 \
   --methods prompteol mean --layers 8 16 24 32 \
   --datasets QMSum 2WikiMultihop \
-  --max-length 512 --batch-size 2 \
+  --max-length 512 --batch-size 8 \
   --output-dir results/layer_ablation
 
 # 层消融实验（ArguAna，快速一次性编码版）

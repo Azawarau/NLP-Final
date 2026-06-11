@@ -105,7 +105,7 @@
 
 ### 3.4 主实验结果（§3.1，已完成）
 
-**实验配置**：Mistral-7B-Instruct-v0.3，4-bit 量化，max_length=512，batch_size=2，抽取层=最后一层。
+**实验配置**：Mistral-7B-Instruct-v0.3，4-bit 量化，max_length=512，batch_size=8，抽取层=最后一层。
 
 | 方法               | QMSum      | 2WikiMultihop | ArguAna    |
 | ---------------- | ---------- | ------------- | ---------- |

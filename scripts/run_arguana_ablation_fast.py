@@ -21,7 +21,7 @@ OUTPUT_DIR = ROOT / "results" / "layer_ablation"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 MODEL_PATH = str(ROOT / "models" / "Mistral-7B-Instruct-v0.3")
 MAX_LENGTH = 512
-BATCH_SIZE = 2
+BATCH_SIZE = 8
 LAYERS = [8, 16, 24, 32]
 
 

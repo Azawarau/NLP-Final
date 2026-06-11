@@ -23,7 +23,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 METHODS = ["prompteol", "mean"]
 MAX_LENGTH = 1024  # reduced for speed on RTX 4060
-BATCH_SIZE = 2
+BATCH_SIZE = 8
 MODEL_PATH = str(ROOT / "models" / "Mistral-7B-Instruct-v0.3")
 
 

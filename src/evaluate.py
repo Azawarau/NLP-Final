@@ -151,7 +151,7 @@ def run_basic_experiment(config: dict[str, Any]) -> dict[str, Any]:
                 method=method,  # type: ignore[arg-type]
                 layer=layer,
                 max_length=config.get("max_length", 8192),
-                batch_size=config.get("batch_size", 1),
+                batch_size=config.get("batch_size", 8),
                 device=config.get("device"),
                 torch_dtype=config.get("torch_dtype", "auto"),
                 normalize=config.get("normalize", True),

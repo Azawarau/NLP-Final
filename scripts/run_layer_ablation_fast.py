@@ -200,7 +200,7 @@ class MultiLayerEncoder:
         self,
         model_path: str,
         max_length: int = 4096,
-        batch_size: int = 1,
+        batch_size: int = 8,
         load_in_4bit: bool = True,
     ):
         logger.info("Loading model: %s", model_path)
@@ -307,7 +307,7 @@ def main():
     parser.add_argument("--layers", nargs="+", type=int, default=[1, 8, 16, 24, 32])
     parser.add_argument("--datasets", nargs="+", default=["QMSum", "2WikiMultihop", "ArguAna"])
     parser.add_argument("--max-length", type=int, default=4096)
-    parser.add_argument("--batch-size", type=int, default=1)
+    parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--output-dir", default="results/layer_ablation")
     parser.add_argument("--no-4bit", action="store_true")
     args = parser.parse_args()

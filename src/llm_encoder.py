@@ -30,7 +30,7 @@ class LLMEmbeddingEncoder:
         method: Method = "mean",
         layer: int = -1,
         max_length: int = 8192,
-        batch_size: int = 1,
+        batch_size: int = 8,
         device: str | None = None,
         torch_dtype: str = "auto",
         trust_remote_code: bool = True,
