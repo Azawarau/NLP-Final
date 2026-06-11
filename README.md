@@ -118,12 +118,6 @@ This sentence : "{text}" means in one word:"
 
 见 `reports/basic_experiment.md`，将 `results/` 中的 JSON 填入表格后导出 PDF 提交。
 
-## 参考文献
-
-- Zhu et al. (2024). *LongEmbed: Extending Embedding Models for Long Context Retrieval.*
-- Jiang et al. (2024). *Scaling Sentence Embeddings with Large Language Models.* EMNLP Findings.
-- Jiang et al. (2024). *Meta-Task Prompting Elicits Embeddings from Large Language Models.* ACL.
-
 ## 后续阶段（未在本目录实现）
 
 - 分析阶段：PromptEOL vs mean 对比、RoPE 频率实验 → 见作业 3.2
