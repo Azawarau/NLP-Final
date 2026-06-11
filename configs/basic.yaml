@@ -1,0 +1,31 @@
+# 基础实验阶段默认配置
+# 本地路径（download_assets.py 下载后）；也可改回 mistralai/Mistral-7B-Instruct-v0.3
+model_name: models/Mistral-7B-Instruct-v0.3
+output_dir: results/basic
+
+# PromptEOL 与 mean-pooling
+methods:
+  - prompteol
+  - mean
+
+# 主实验：最后一层；-1 表示最后一层 hidden state
+layers:
+  - -1
+
+# 层数消融（run_layer_ablation.py 会覆盖此项）
+# layers: [8, 16, 24, 32]
+
+tasks:
+  - LEMBQMSumRetrieval
+  - LEMBWikimQARetrieval
+  - ArguAna
+
+max_length: 8192
+batch_size: 1
+torch_dtype: auto
+normalize: true
+use_chat_template: false
+overwrite: true
+# 量化：RTX 4060 8GB 显存需开启 4-bit（约 4-5GB）；显存 ≥ 16GB 可关闭
+load_in_4bit: true
+load_in_8bit: false
