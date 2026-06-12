@@ -273,6 +273,23 @@ def main():
         logger.info("  nDCG@10=%.4f R@10=%.4f (%.0fs)",
                     m_rp3["ndcg@10"], m_rp3["recall@10"], time.time()-t0)
 
+        # ----- RP2+RP3 Combined: compress + chunk -----
+        t0 = time.time()
+        logger.info("[5] combined_rp23 (compress + chunk...)")
+        flat_c2, c_lens2 = token_chunk_texts(tok, c_comp, args.chunk_size, args.chunk_overlap)
+        flat_q2, q_lens2 = token_chunk_texts(tok, qt, args.chunk_size, args.chunk_overlap)
+        logger.info("  compressed %d texts → %d chunks (corpus), %d → %d (queries)",
+                    len(c_comp), len(flat_c2), len(qt), len(flat_q2))
+        c_chunks_emb2 = encode(flat_c2)
+        q_chunks_emb2 = encode(flat_q2)
+        c_emb_rp23 = aggregate_chunks(c_chunks_emb2, c_lens2, "mean")
+        q_emb_rp23 = aggregate_chunks(q_chunks_emb2, q_lens2, "mean")
+        m_rp23 = calc_metrics(q_emb_rp23, c_emb_rp23, qrels, qi, ci)
+        ds_result["combined_rp23"] = {"ndcg@10": m_rp23["ndcg@10"],
+                                       "recall@10": m_rp23["recall@10"]}
+        logger.info("  nDCG@10=%.4f R@10=%.4f (%.0fs)",
+                    m_rp23["ndcg@10"], m_rp23["recall@10"], time.time()-t0)
+
         # ----- Save -----
         out_path = out / f"{ds_name}_full.json"
         with open(out_path, "w") as f:
@@ -280,7 +297,7 @@ def main():
         logger.info("Saved: %s", out_path)
 
         # Print summary line
-        for method in ["baseline_mean", "rp2_chunk_mean", "rp3_extractive"]:
+        for method in ["baseline_mean", "rp2_chunk_mean", "rp3_extractive", "combined_rp23"]:
             m = ds_result[method]
             pct = ""
             if method != "baseline_mean" and m_bl["ndcg@10"] > 0:
