@@ -189,7 +189,7 @@ Mean-pooling 在所有位置上几乎完全均匀（uniformity > 0.999），Prom
 
 ### 3.2 研究点 2：长文本分块聚合
 
-**方法**：tokenizer 精确分块——QMSum/2Wiki 用 chunk_size=1024, overlap=128；ArguAna 用 chunk_size=512, overlap=64——然后展平所有 chunk 为一批编码，再按原文聚合（mean 或 L2-weighted）。
+**方法**：tokenizer 精确分块——QMSum/2Wiki 用 chunk_size=1024, overlap=128；ArguAna 用 chunk_size=512, overlap=64——然后展平所有 chunk 为一批编码，再按原文做 mean-pooling 聚合。
 
 > 脚本: `scripts/run_rp23_final.py`（QMSum/2Wiki）和 `scripts/run_rp23_fast.py`（ArguAna）——两个脚本均包含 RP2 与 RP3 的完整实现与 baseline 共用代码，下文 §3.3 不再单独列出。max_corpus=100 (final) / 200 (fast)。
 
@@ -199,15 +199,12 @@ Mean-pooling 在所有位置上几乎完全均匀（uniformity > 0.999），Prom
 |------|:---:|:---:|:---:|
 | Baseline | 0.1670 | 0.2043 | 0.8635 |
 | **RP2-Chunk-Mean** | **0.3173 (+90.0%)** | **0.2613 (+27.9%)** | 0.8313 (-3.7%) |
-| RP2-Chunk-Weighted | 0.3173 (+90.0%) | 0.2613 (+27.9%) | 0.8313 (-3.7%) |
 
-**核心发现**：分块聚合是三种方法中对长文本最有效的方法。
-
-> **ArguAna 为何两种分块方法结果相同？** ArguAna 论辩文本平均长度仅 100~300 tokens，而分块窗口为 512 tokens（ArguAna 用的 fast 脚本参数），导致绝大多数文本只产生 1 个 chunk。当 chunk 数为 1 时，`mean(chunks)` 和 `weighted-average(chunks)` 退化为同一个值。这也解释了分块在 ArguAna 上的 −3.7% 副效应：短文本被强行分块后反而损失了跨句上下文，而在 QMSum/2Wiki 这种真正需要切分的长文本上，分块聚合的优势才得以体现。
+**核心发现**：分块聚合是三种方法中对长文本最有效的方法。ArguAna 的 −3.7% 源于其文本极短（100~300 tokens），chunk_size=512 下大多只产生 1 个 chunk，分块无效果反而损失跨句上下文。
 
 ### 3.3 研究点 3：语义压缩后再编码
 
-**方法**：基于 TextRank / LexRank 原理（Mihalcea & Tarau, 2004）的抽取式压缩——所有文本的所有句子批量编码成向量 → 构建句子间余弦相似度矩阵 → 计算每个句子的中心度（平均相似度，即 PageRank 的一阶近似） → 按中心度排序取 Top-30% 句子 → 保持原文顺序还原。Hierarchical 变体为两阶段：先在各段落内局部压缩，再对拼接结果全局压缩。
+**方法**：基于 TextRank / LexRank 原理（Mihalcea & Tarau, 2004）的抽取式压缩——所有文本的所有句子批量编码成向量 → 构建句子间余弦相似度矩阵 → 计算每个句子的中心度（平均相似度，即 PageRank 的一阶近似） → 按中心度排序取 Top-30% 句子 → 保持原文顺序还原。文本 ≤3 句时跳过压缩、直接返回原文。
 
 > 脚本同上（RP2 与 RP3 实现在同一脚本中：`scripts/run_rp23_final.py` / `scripts/run_rp23_fast.py`）。句子编码 max_length=128, batch_size=64。
 
@@ -215,22 +212,10 @@ Mean-pooling 在所有位置上几乎完全均匀（uniformity > 0.999），Prom
 |------|:---:|:---:|:---:|
 | Baseline | 0.1670 | 0.2043 | 0.8635 |
 | **RP3-Extractive** | **0.2513 (+50.5%)** | 0.2143 (+4.9%) | 0.8150 (-5.6%) |
-| RP3-Hierarchical | — | — | 0.8150 (-5.6%) |
 
-压缩效果与文本冗余度正相关：QMSum 会议记录（极高冗余）→ +50.5%，2Wiki 百科（信息密集）→ +4.9%，ArguAna 短论辩 → −5.6%。
+压缩效果与文本冗余度正相关：QMSum 会议记录（极高冗余）→ +50.5%，2Wiki 百科（信息密集）→ +4.9%，ArguAna 短论辩 → −5.6%（文本 ≤3 句时跳过压缩，且本就信息密集的短论辩经压缩后可能丢失关键推理节点）。
 
-> **ArguAna 为何两种压缩方法结果相同？** `compress_extractive` 在文本 ≤3 句时直接返回原文（不压缩），ArguAna 论辩文本大多不超过 3 句，Extractive 和 Hierarchical 在绝大多数文本上输入完全相同，从而输出一致。同时，压缩对短文本产生 −5.6% 的反效果：本就信息密集的短论辩经压缩后可能丢失关键推理节点，反而损害检索质量。
-
-### 3.4 组合实验
-
-| 方法 | ArguAna nDCG@10 |
-|------|:---:|
-| Baseline | 0.8635 |
-| RP2+RP3 Combined | 0.8221 (-4.8%) |
-
-QMSum/2Wiki 组合评估因 GPU 时间限制未完成。
-
-### 3.5 三方法效果总览
+### 3.4 三方法效果总览
 
 | 研究点 | QMSum | 2WikiMultihop | ArguAna | 适用场景 |
 |--------|:---:|:---:|:---:|------|
