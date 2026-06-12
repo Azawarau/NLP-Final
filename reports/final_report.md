@@ -1,6 +1,6 @@
 # 从大语言模型中抽取长文本表示
 
-> 实验日期：2026-06-11/12
+> 实验日期：2026-05-17/06-12
 > 模型：Mistral-7B-Instruct-v0.3 (4-bit 量化，本地路径 `models/Mistral-7B-Instruct-v0.3`)
 > 数据集：QMSum / 2WikiMultihop / ArguAna
 > 所有数据均可通过项目脚本复现，JSON 结果见 `results/` 目录

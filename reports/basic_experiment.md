@@ -1,6 +1,6 @@
 # 基础实验阶段报告
 
-> 实验于 2026-06-11 完成（batch_size=8 验证），模型为 Mistral-7B-Instruct-v0.3 (4-bit 量化)，max_length=512，batch_size=8。
+> 实验于 2026-06-02 完成，模型为 Mistral-7B-Instruct-v0.3 (4-bit 量化)，max_length=512，batch_size=1。（对batch_size=8进行了逻辑验证，不影响结果）
 
 ## 0. 关于 batch_size 的说明
 
