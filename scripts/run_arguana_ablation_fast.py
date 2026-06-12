@@ -28,7 +28,7 @@ LAYERS = [8, 16, 24, 32]
 def load_arguana():
     c = load_dataset("mteb/arguana", "corpus", split="corpus")
     q = load_dataset("mteb/arguana", "queries", split="queries")
-    qr = load_dataset("mteb/arguana", split="test")
+    qr = load_dataset("mteb/arguana", "default", split="test")
     c_texts = []
     c_ids = []
     for doc in c:

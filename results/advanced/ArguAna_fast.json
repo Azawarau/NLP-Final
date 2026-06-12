@@ -1,0 +1,56 @@
+{
+  "baseline_mean": {
+    "desc": "Baseline: mean-pooling",
+    "metrics": {
+      "ndcg@10": 0.8635470166029752,
+      "recall@10": 0.98,
+      "mrr@10": 0.8246666666666667,
+      "map@10": 0.8246666666666667
+    }
+  },
+  "rp1_attention": {
+    "desc": "RP1: Attention-sim weighted",
+    "metrics": {
+      "ndcg@10": 0.8758099604582845,
+      "recall@10": 0.98,
+      "mrr@10": 0.8406666666666667,
+      "map@10": 0.8406666666666667
+    }
+  },
+  "rp1_saliency": {
+    "desc": "RP1: L2-saliency weighted",
+    "metrics": {
+      "ndcg@10": 0.8758099604582845,
+      "recall@10": 0.98,
+      "mrr@10": 0.8406666666666667,
+      "map@10": 0.8406666666666667
+    }
+  },
+  "rp1_combined": {
+    "desc": "RP1: Combined weighted (0.4/0.35/0.25)",
+    "metrics": {
+      "ndcg@10": 0.8758099604582845,
+      "recall@10": 0.98,
+      "mrr@10": 0.8406666666666667,
+      "map@10": 0.8406666666666667
+    }
+  },
+  "rp1_std": {
+    "desc": "RP1: Std-dev weighted",
+    "metrics": {
+      "ndcg@10": 0.8758099604582845,
+      "recall@10": 0.98,
+      "mrr@10": 0.8406666666666667,
+      "map@10": 0.8406666666666667
+    }
+  },
+  "rp1_absmax": {
+    "desc": "RP1: Abs-max weighted",
+    "metrics": {
+      "ndcg@10": 0.869917942949021,
+      "recall@10": 0.98,
+      "mrr@10": 0.8323333333333331,
+      "map@10": 0.8323333333333331
+    }
+  }
+}

@@ -92,7 +92,7 @@ def load_2wikimultihop():
 def load_arguana():
     corpus_ds = load_dataset("mteb/arguana", "corpus", split="corpus")
     queries_ds = load_dataset("mteb/arguana", "queries", split="queries")
-    qrels_ds = load_dataset("mteb/arguana", split="test")
+    qrels_ds = load_dataset("mteb/arguana", "default", split="test")
     corpus_texts, corpus_ids = [], []
     for doc in corpus_ds:
         title = doc.get("title", "") or ""

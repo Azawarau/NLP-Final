@@ -91,7 +91,7 @@ def load_arguana():
     # Load texts from dedicated configs
     corpus_ds = load_dataset("mteb/arguana", "corpus", split="corpus")
     queries_ds = load_dataset("mteb/arguana", "queries", split="queries")
-    qrels_ds = load_dataset("mteb/arguana", split="test")  # default config
+    qrels_ds = load_dataset("mteb/arguana", "default", split="test")
 
     # Build corpus: title + text
     corpus_texts = []

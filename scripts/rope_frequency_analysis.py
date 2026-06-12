@@ -642,7 +642,7 @@ def run_rope_analysis(
 
                 encoded = tokenizer(
                     batch_inputs,
-                    padding=True,
+                    padding="max_length",
                     truncation=True,
                     max_length=max_length,
                     return_tensors="pt",

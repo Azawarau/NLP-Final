@@ -470,7 +470,7 @@ def run_position_analysis(
                     batch_inputs = list(batch)
 
                 encoded = tokenizer(
-                    batch_inputs, padding=True, truncation=True,
+                    batch_inputs, padding="max_length", truncation=True,
                     max_length=max_length, return_tensors="pt",
                 )
                 device = next(model.parameters()).device

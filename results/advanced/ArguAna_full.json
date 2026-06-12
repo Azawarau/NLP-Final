@@ -1,0 +1,44 @@
+{
+  "baseline_mean": {
+    "desc": "Baseline mean-pooling",
+    "metrics": {
+      "ndcg@10": 0.8635470166029752,
+      "recall@10": 0.98
+    }
+  },
+  "rp2_chunk_mean": {
+    "desc": "RP2: Chunk-based mean agg",
+    "metrics": {
+      "ndcg@10": 0.8312840727476661,
+      "recall@10": 0.96
+    }
+  },
+  "rp2_chunk_weighted": {
+    "desc": "RP2: Chunk-based weighted agg",
+    "metrics": {
+      "ndcg@10": 0.8312840727476661,
+      "recall@10": 0.96
+    }
+  },
+  "rp3_extractive": {
+    "desc": "RP3: Extractive compression",
+    "metrics": {
+      "ndcg@10": 0.8149764931267837,
+      "recall@10": 0.96
+    }
+  },
+  "rp3_hierarchical": {
+    "desc": "RP3: Hierarchical compression",
+    "metrics": {
+      "ndcg@10": 0.8149764931267837,
+      "recall@10": 0.96
+    }
+  },
+  "combined_rp23": {
+    "desc": "RP2+RP3: Compress + Chunk",
+    "metrics": {
+      "ndcg@10": 0.8221006368689442,
+      "recall@10": 0.98
+    }
+  }
+}

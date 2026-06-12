@@ -1,0 +1,376 @@
+{
+  "per_position_contrib": {
+    "mean": {
+      "segment_contributions": [
+        {
+          "segment": 0,
+          "position_percentile": "0-10%",
+          "mean_cosine_sim": 0.8084386020898819,
+          "std_cosine_sim": 0.10097724899791301,
+          "n_samples": 20
+        },
+        {
+          "segment": 1,
+          "position_percentile": "10-20%",
+          "mean_cosine_sim": 0.8489177078008652,
+          "std_cosine_sim": 0.0740875106037986,
+          "n_samples": 20
+        },
+        {
+          "segment": 2,
+          "position_percentile": "20-30%",
+          "mean_cosine_sim": 0.8177604258060456,
+          "std_cosine_sim": 0.12071236986148853,
+          "n_samples": 20
+        },
+        {
+          "segment": 3,
+          "position_percentile": "30-40%",
+          "mean_cosine_sim": 0.8835472762584686,
+          "std_cosine_sim": 0.0586948899316538,
+          "n_samples": 20
+        },
+        {
+          "segment": 4,
+          "position_percentile": "40-50%",
+          "mean_cosine_sim": 0.8499800771474838,
+          "std_cosine_sim": 0.09089892079026866,
+          "n_samples": 20
+        },
+        {
+          "segment": 5,
+          "position_percentile": "50-60%",
+          "mean_cosine_sim": 0.8662017941474914,
+          "std_cosine_sim": 0.07388675616350615,
+          "n_samples": 20
+        },
+        {
+          "segment": 6,
+          "position_percentile": "60-70%",
+          "mean_cosine_sim": 0.8680091679096222,
+          "std_cosine_sim": 0.06794640129342407,
+          "n_samples": 20
+        },
+        {
+          "segment": 7,
+          "position_percentile": "70-80%",
+          "mean_cosine_sim": 0.8564538329839706,
+          "std_cosine_sim": 0.08811690441257422,
+          "n_samples": 20
+        },
+        {
+          "segment": 8,
+          "position_percentile": "80-90%",
+          "mean_cosine_sim": 0.8485830217599869,
+          "std_cosine_sim": 0.08116964332251483,
+          "n_samples": 20
+        },
+        {
+          "segment": 9,
+          "position_percentile": "90-100%",
+          "mean_cosine_sim": 0.8083468049764633,
+          "std_cosine_sim": 0.11777848436291831,
+          "n_samples": 20
+        }
+      ],
+      "top_segments": [
+        {
+          "segment": 3,
+          "percentile": "30-40%",
+          "similarity": 0.8835
+        },
+        {
+          "segment": 6,
+          "percentile": "60-70%",
+          "similarity": 0.868
+        },
+        {
+          "segment": 5,
+          "percentile": "50-60%",
+          "similarity": 0.8662
+        }
+      ],
+      "contribution_uniformity": {
+        "normalized_entropy": 0.9998,
+        "std": 0.024632,
+        "cv": 0.0291
+      }
+    },
+    "prompteol": {
+      "segment_contributions": [
+        {
+          "segment": 0,
+          "position_percentile": "0-10%",
+          "mean_cosine_sim": 0.21784696336835624,
+          "std_cosine_sim": 0.09544248158711004,
+          "n_samples": 20
+        },
+        {
+          "segment": 1,
+          "position_percentile": "10-20%",
+          "mean_cosine_sim": 0.2430051825940609,
+          "std_cosine_sim": 0.12848752950380102,
+          "n_samples": 20
+        },
+        {
+          "segment": 2,
+          "position_percentile": "20-30%",
+          "mean_cosine_sim": 0.23394692027941347,
+          "std_cosine_sim": 0.13719384355226943,
+          "n_samples": 20
+        },
+        {
+          "segment": 3,
+          "position_percentile": "30-40%",
+          "mean_cosine_sim": 0.24413169231265783,
+          "std_cosine_sim": 0.12795492760057509,
+          "n_samples": 20
+        },
+        {
+          "segment": 4,
+          "position_percentile": "40-50%",
+          "mean_cosine_sim": 0.23728483030572534,
+          "std_cosine_sim": 0.12623454562984032,
+          "n_samples": 20
+        },
+        {
+          "segment": 5,
+          "position_percentile": "50-60%",
+          "mean_cosine_sim": 0.25600509042851627,
+          "std_cosine_sim": 0.14991487239351484,
+          "n_samples": 20
+        },
+        {
+          "segment": 6,
+          "position_percentile": "60-70%",
+          "mean_cosine_sim": 0.2524816919118166,
+          "std_cosine_sim": 0.13090914474487264,
+          "n_samples": 20
+        },
+        {
+          "segment": 7,
+          "position_percentile": "70-80%",
+          "mean_cosine_sim": 0.2649090839549899,
+          "std_cosine_sim": 0.15588869743806366,
+          "n_samples": 20
+        },
+        {
+          "segment": 8,
+          "position_percentile": "80-90%",
+          "mean_cosine_sim": 0.27436319533735515,
+          "std_cosine_sim": 0.1264513751558323,
+          "n_samples": 20
+        },
+        {
+          "segment": 9,
+          "position_percentile": "90-100%",
+          "mean_cosine_sim": 0.3644352242350578,
+          "std_cosine_sim": 0.14488851381560344,
+          "n_samples": 20
+        }
+      ],
+      "top_segments": [
+        {
+          "segment": 9,
+          "percentile": "90-100%",
+          "similarity": 0.3644
+        },
+        {
+          "segment": 8,
+          "percentile": "80-90%",
+          "similarity": 0.2744
+        },
+        {
+          "segment": 7,
+          "percentile": "70-80%",
+          "similarity": 0.2649
+        }
+      ],
+      "contribution_uniformity": {
+        "normalized_entropy": 0.9956,
+        "std": 0.038352,
+        "cv": 0.1482
+      }
+    }
+  },
+  "info_bottleneck": {
+    "mean": {
+      "last_token_avg_similarity_to_all_tokens": 0.1560427751392126,
+      "mean_pooled_avg_similarity_to_all_tokens": 0.3829735070466995,
+      "coverage_gap": 0.2269,
+      "relative_improvement_pct": 145.4
+    },
+    "prompteol": {
+      "last_token_avg_similarity_to_all_tokens": 0.12042440753430128,
+      "mean_pooled_avg_similarity_to_all_tokens": 0.3877295106649399,
+      "coverage_gap": 0.2673,
+      "relative_improvement_pct": 222.0
+    }
+  },
+  "layer_sensitivity": {
+    "mean": {
+      "layer_8": {
+        "first_half_contrib": 0.8,
+        "second_half_contrib": 0.8553,
+        "recency_bias": 0.0553,
+        "uniformity": {
+          "normalized_entropy": 0.9979,
+          "std": 0.07805,
+          "cv": 0.0943
+        },
+        "top_segment": {
+          "segment": 5,
+          "percentile": "50-60%",
+          "similarity": 0.8682
+        }
+      },
+      "layer_16": {
+        "first_half_contrib": 0.8079,
+        "second_half_contrib": 0.8236,
+        "recency_bias": 0.0157,
+        "uniformity": {
+          "normalized_entropy": 0.9993,
+          "std": 0.045893,
+          "cv": 0.0563
+        },
+        "top_segment": {
+          "segment": 5,
+          "percentile": "50-60%",
+          "similarity": 0.8554
+        }
+      },
+      "layer_24": {
+        "first_half_contrib": 0.8772,
+        "second_half_contrib": 0.8852,
+        "recency_bias": 0.0079,
+        "uniformity": {
+          "normalized_entropy": 0.9999,
+          "std": 0.021754,
+          "cv": 0.0247
+        },
+        "top_segment": {
+          "segment": 5,
+          "percentile": "50-60%",
+          "similarity": 0.9143
+        }
+      },
+      "layer_32": {
+        "first_half_contrib": 0.8771,
+        "second_half_contrib": 0.8748,
+        "recency_bias": -0.0023,
+        "uniformity": {
+          "normalized_entropy": 0.9999,
+          "std": 0.018932,
+          "cv": 0.0216
+        },
+        "top_segment": {
+          "segment": 5,
+          "percentile": "50-60%",
+          "similarity": 0.9057
+        }
+      }
+    },
+    "prompteol": {
+      "layer_8": {
+        "first_half_contrib": 0.8016,
+        "second_half_contrib": 0.8612,
+        "recency_bias": 0.0596,
+        "uniformity": {
+          "normalized_entropy": 0.9975,
+          "std": 0.084974,
+          "cv": 0.1022
+        },
+        "top_segment": {
+          "segment": 7,
+          "percentile": "70-80%",
+          "similarity": 0.8735
+        }
+      },
+      "layer_16": {
+        "first_half_contrib": 0.8046,
+        "second_half_contrib": 0.8248,
+        "recency_bias": 0.0202,
+        "uniformity": {
+          "normalized_entropy": 0.9989,
+          "std": 0.056712,
+          "cv": 0.0696
+        },
+        "top_segment": {
+          "segment": 5,
+          "percentile": "50-60%",
+          "similarity": 0.8553
+        }
+      },
+      "layer_24": {
+        "first_half_contrib": 0.8755,
+        "second_half_contrib": 0.885,
+        "recency_bias": 0.0095,
+        "uniformity": {
+          "normalized_entropy": 0.9998,
+          "std": 0.023062,
+          "cv": 0.0262
+        },
+        "top_segment": {
+          "segment": 5,
+          "percentile": "50-60%",
+          "similarity": 0.9128
+        }
+      },
+      "layer_32": {
+        "first_half_contrib": 0.8813,
+        "second_half_contrib": 0.8798,
+        "recency_bias": -0.0015,
+        "uniformity": {
+          "normalized_entropy": 0.9999,
+          "std": 0.017947,
+          "cv": 0.0204
+        },
+        "top_segment": {
+          "segment": 5,
+          "percentile": "50-60%",
+          "similarity": 0.9051
+        }
+      }
+    }
+  },
+  "token_count_impact": {
+    "mean": {
+      "length_bins": [
+        {
+          "length_range": "512-1024",
+          "mean_length": 768.0,
+          "last_vs_mean_cosine_sim": 0.4002,
+          "std": 0.1567,
+          "n_samples": 20
+        },
+        {
+          "length_range": "1024-2048",
+          "mean_length": 1536.0,
+          "last_vs_mean_cosine_sim": 0.4002,
+          "std": 0.1567,
+          "n_samples": 20
+        }
+      ],
+      "trend": "stable_or_increasing"
+    },
+    "prompteol": {
+      "length_bins": [
+        {
+          "length_range": "512-1024",
+          "mean_length": 768.0,
+          "last_vs_mean_cosine_sim": 0.3031,
+          "std": 0.1302,
+          "n_samples": 20
+        },
+        {
+          "length_range": "1024-2048",
+          "mean_length": 1536.0,
+          "last_vs_mean_cosine_sim": 0.3031,
+          "std": 0.1302,
+          "n_samples": 20
+        }
+      ],
+      "trend": "stable_or_increasing"
+    }
+  }
+}
