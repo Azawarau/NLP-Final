@@ -1,0 +1,9 @@
+{
+  "checks": {
+    "files": "PASS",
+    "capabilities": "PASS",
+    "imports": "PASS",
+    "smoke": "PASS",
+    "offline_pipeline": "PASS"
+  }
+}

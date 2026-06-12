@@ -1,0 +1,31 @@
+{
+  "model": "models/Mistral-7B-Instruct-v0.3",
+  "method": "mean",
+  "layer": 16,
+  "max_length": 512,
+  "load_in_4bit": true,
+  "datasets": {
+    "QMSum": {
+      "ndcg@1": 0.03798297314996726,
+      "recall@1": 0.03798297314996726,
+      "precision@1": 0.03798297314996726,
+      "ndcg@10": 0.11073128954966018,
+      "recall@10": 0.21021611001964635,
+      "precision@10": 0.021021611001964636,
+      "mrr@10": 0.08054827912391763,
+      "map@10": 0.08054827912391763,
+      "num_queries_evaluated": 1527
+    },
+    "2WikiMultihop": {
+      "ndcg@1": 0.01,
+      "recall@1": 0.01,
+      "precision@1": 0.01,
+      "ndcg@10": 0.02369941759565269,
+      "recall@10": 0.043333333333333335,
+      "precision@10": 0.004333333333333333,
+      "mrr@10": 0.01764814814814815,
+      "map@10": 0.01764814814814815,
+      "num_queries_evaluated": 300
+    }
+  }
+}

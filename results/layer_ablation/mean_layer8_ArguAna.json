@@ -1,0 +1,19 @@
+{
+  "model": "D:\\NPL-Final\\models\\Mistral-7B-Instruct-v0.3",
+  "method": "mean",
+  "layer": 8,
+  "max_length": 512,
+  "datasets": {
+    "ArguAna": {
+      "ndcg@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 0.0,
+      "map@1": 0.0,
+      "ndcg@10": 0.12529509214930534,
+      "recall@10": 0.26955903271692744,
+      "precision@10": 0.026955903271692748,
+      "map@10": 0.08019062295378085,
+      "mrr@10": 0.08019062295378085
+    }
+  }
+}
